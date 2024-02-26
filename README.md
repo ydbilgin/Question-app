@@ -15,4 +15,4 @@ Bu proje, kullanıcılara interaktif bir şekilde quiz yapma imkanı sunan bir w
 
 ## Deploy
 
-**Canlı Site:** [Proje Adı](https://question-app-psi.vercel.app/)
+**Canlı Site:** [Question App](https://question-app-psi.vercel.app/)
