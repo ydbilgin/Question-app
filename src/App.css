@@ -28,6 +28,7 @@ body {
   justify-self: center;
   grid-template-columns: 4fr 1fr;
   grid-gap: 5%;
+  height: 700px;
 }
 
 .left-container {
