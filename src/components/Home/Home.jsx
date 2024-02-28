@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.Style.css";
 
 function Home({ onStartTest, totalQuestions, timerEachQuestion, optionTimer }) {
+  const [isTestStarted, setIsTestStarted] = useState(false);
+
+  const handleStartTest = () => {
+    setIsTestStarted(true);
+    onStartTest();
+  };
+
   return (
     <div className="home-container">
       <h1>Teste Hoş Geldiniz!</h1>
@@ -20,9 +27,11 @@ function Home({ onStartTest, totalQuestions, timerEachQuestion, optionTimer }) {
         saniye sonra gelecektir.
       </p>
       <p>Başarılar</p>
-      <button id="start" onClick={onStartTest}>
-        Teste Başla
-      </button>
+      {!isTestStarted && (
+        <button id="start" onClick={handleStartTest}>
+          Teste Başla
+        </button>
+      )}
     </div>
   );
 }

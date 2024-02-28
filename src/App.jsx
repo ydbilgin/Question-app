@@ -41,40 +41,43 @@ function App() {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (secondsLeft > 0 && !testFinished) {
-        setSecondsLeft((prevSeconds) => prevSeconds - 1);
-        setStrokeDashoffset(
-          (prevOffset) => prevOffset - circumference / timerEachQuestion
-        );
-      } else {
-        if (currentQuestionIndex === questions.length - 1 && !testFinished) {
-          setEmptyAnswers((prevEmpty) => prevEmpty + 1);
-          const updatedUserAnswers = [...userAnswers];
-          updatedUserAnswers[currentQuestionIndex] = "Boş Bıraktınız!";
-          setUserAnswers(updatedUserAnswers);
-        }
-        if (currentQuestionIndex < questions.length - 1 && !testFinished) {
-          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-          setEmptyAnswers((prevEmpty) => prevEmpty + 1);
-          const updatedUserAnswers = [...userAnswers];
-          updatedUserAnswers[currentQuestionIndex] = "Boş Bıraktınız!";
-          setUserAnswers(updatedUserAnswers);
-          setQuestionNumber((prevNumber) => prevNumber + 1);
-          setAnswerStatus((prevStatus) => [...prevStatus, "empty"]);
+    if (isTestStarted) {
+      const timer = setInterval(() => {
+        if (secondsLeft > 0 && !testFinished) {
+          setSecondsLeft((prevSeconds) => prevSeconds - 1);
+          setStrokeDashoffset(
+            (prevOffset) => prevOffset - circumference / timerEachQuestion
+          );
         } else {
-          setTestFinished(true);
-          clearInterval(timer);
-          setLastQuestionStatus(answerStatus[questions.length - 1]);
+          if (currentQuestionIndex === questions.length - 1 && !testFinished) {
+            setEmptyAnswers((prevEmpty) => prevEmpty + 1);
+            const updatedUserAnswers = [...userAnswers];
+            updatedUserAnswers[currentQuestionIndex] = "Boş Bıraktınız!";
+            setUserAnswers(updatedUserAnswers);
+          }
+          if (currentQuestionIndex < questions.length - 1 && !testFinished) {
+            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+            setEmptyAnswers((prevEmpty) => prevEmpty + 1);
+            const updatedUserAnswers = [...userAnswers];
+            updatedUserAnswers[currentQuestionIndex] = "Boş Bıraktınız!";
+            setUserAnswers(updatedUserAnswers);
+            setQuestionNumber((prevNumber) => prevNumber + 1);
+            setAnswerStatus((prevStatus) => [...prevStatus, "empty"]);
+          } else {
+            setTestFinished(true);
+            clearInterval(timer);
+            setLastQuestionStatus(answerStatus[questions.length - 1]);
+          }
+
+          setSecondsLeft(timerEachQuestion);
+          setStrokeDashoffset(circumference);
         }
+      }, 1000);
 
-        setSecondsLeft(timerEachQuestion);
-        setStrokeDashoffset(circumference);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
+      return () => clearInterval(timer);
+    }
   }, [
+    isTestStarted,
     currentQuestionIndex,
     correctAnswers,
     wrongAnswers,
