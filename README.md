@@ -1,6 +1,6 @@
 # Quiz Uygulaması
 
-![Quiz Uygulaması]
+
 
 Bu proje, kullanıcılara interaktif bir şekilde quiz yapma imkanı sunan bir web uygulamasıdır.
 
